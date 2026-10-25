@@ -23,6 +23,9 @@
   --olive: #5D6A38;     /* reserved for "won" */
   --on-bark: #F2EADC;
   --grain: .18;
+  --duskglow: #E9AE7E;
+  --sunset: #D8743A;
+  --windowlight: #F3C77A;
   --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --step-0: 1rem;
@@ -34,12 +37,12 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --sand: #20160E; --paper: #2B1E14; --bark: #EADFCB; --saddle: #C4A27F;
-    --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; --grain: .10; color-scheme: dark;
+    --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; --grain: .10; --duskglow: #6E3A1C; --sunset: #D0682E; --windowlight: #F0B860; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --sand: #20160E; --paper: #2B1E14; --bark: #EADFCB; --saddle: #C4A27F;
-  --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; --grain: .10; color-scheme: dark;
+  --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; --grain: .10; --duskglow: #6E3A1C; --sunset: #D0682E; --windowlight: #F0B860; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -95,6 +98,9 @@ nav.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 720px) { nav.links { display: none; } }
 
 /* Hero */
+.hero { position: relative; --dusk: 0; }
+.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent 25%, var(--duskglow) 100%); opacity: calc(var(--dusk) * .75); }
+.hero .wrap, .hero .view { position: relative; }
 .hero .wrap { display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; align-items: end; padding-block: 56px 24px; }
 .hero h1 { font-size: var(--step-4); }
 .hero h1 span { display: block; }
@@ -106,9 +112,11 @@ nav.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 /* The view: a coastal cliff with a house on top, drawn under the hero */
 .view { display: block; width: 100%; height: clamp(140px, 22vw, 280px); margin-top: -8px; }
 .view .far { fill: var(--line); }
-.view .sea { fill: color-mix(in srgb, var(--saddle) 22%, var(--sand)); }
+.view .sea { fill: color-mix(in srgb, var(--duskglow) calc(var(--dusk) * 45%), color-mix(in srgb, var(--saddle) 22%, var(--sand))); }
 .view .swell { stroke: color-mix(in srgb, var(--saddle) 45%, var(--sand)); stroke-width: 2; stroke-linecap: round; fill: none; }
-.view .sun { fill: color-mix(in srgb, var(--saddle) 40%, var(--sand)); }
+.view .sun { fill: color-mix(in srgb, var(--sunset) calc(var(--dusk) * 100%), color-mix(in srgb, var(--saddle) 40%, var(--sand))); }
+.view .glow { fill: var(--windowlight); opacity: 0; }
+.view .glowhalo { fill: var(--windowlight); opacity: 0; filter: blur(6px); }
 .view .rock { fill: var(--bark); }
 .view .glass { fill: var(--sand); }
 .view .horizon { stroke: var(--saddle); stroke-width: 1.5; }
@@ -121,7 +129,7 @@ nav.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .tag {
   position: relative; background: var(--paper); border: 1px solid var(--line);
   border-radius: 10px 10px 10px 10px; padding: 34px 26px 24px; max-width: 340px; justify-self: end; width: 100%;
-  transform: rotate(2deg); box-shadow: 0 18px 30px -22px rgba(30, 18, 8, 0.55);
+  --tilt: 2deg; transform-origin: 50% 21px; transform: rotate(calc(var(--tilt) + var(--swing, 0deg))); box-shadow: 0 18px 30px -22px rgba(30, 18, 8, 0.55);
 }
 .tag::before {
   content: ""; position: absolute; top: 14px; left: 50%; width: 14px; height: 14px; margin-left: -7px;
@@ -137,7 +145,7 @@ nav.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .tag .foot { margin-top: 16px; font-size: 0.78rem; color: var(--saddle); }
 @media (max-width: 860px) {
   .hero .wrap { grid-template-columns: 1fr; gap: 40px; }
-  .tag { justify-self: start; transform: rotate(-1.5deg); }
+  .tag { justify-self: start; --tilt: -1.5deg; }
 }
 
 /* Sections */
@@ -250,8 +258,6 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
   .view .house { animation: settle 1s .35s cubic-bezier(.2,.7,.2,1) both; }
   @keyframes stack { from { transform: translateY(.35em); opacity: 0; } }
   @keyframes settle { from { transform: translateY(14px); opacity: 0; } }
-  .tag { transition: transform .4s ease; }
-  .tag:hover { transform: rotate(0deg); }
 }
 </style>
 </head>
@@ -306,12 +312,13 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
       </aside>
     </div>
     <svg class="view" viewBox="0 0 1200 280" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
-      <circle class="sun" cx="640" cy="176" r="54"/>
-      <path class="far" d="M0 180 L70 150 L130 162 L210 118 L290 150 L360 132 L430 158 L500 140 L560 176 L600 180 Z"/>
-      <rect class="sea" x="0" y="180" width="1200" height="100"/>
-      <line class="horizon" x1="0" y1="180" x2="1200" y2="180"/>
-      <path class="swell" d="M60 212 h70 M210 236 h110 M420 206 h60 M520 252 h90 M90 262 h50 M640 222 h80"/>
-      <path class="rock" d="M700 280 L716 246 L748 232 L770 204 L806 194 L828 168 L872 156 L912 150 L932 138 L956 124 L1200 118 L1200 280 Z"/>
+      <circle class="sun" id="sun" cx="640" cy="176" r="54"/>
+      <g id="farHills"><path class="far" d="M0 180 L70 150 L130 162 L210 118 L290 150 L360 132 L430 158 L500 140 L560 176 L600 180 Z"/></g>
+      <rect class="sea" x="-60" y="180" width="1320" height="100"/>
+      <line class="horizon" x1="-60" y1="180" x2="1260" y2="180"/>
+      <g id="swells"><path class="swell" d="M60 212 h70 M210 236 h110 M420 206 h60 M520 252 h90 M90 262 h50 M640 222 h80"/></g>
+      <g id="land">
+      <path class="rock" d="M700 280 L716 246 L748 232 L770 204 L806 194 L828 168 L872 156 L912 150 L932 138 L956 124 L1250 118 L1250 280 Z"/>
       <path class="trail" d="M1124 120 L1102 150 L1142 178 L1112 214 L1150 248 L1132 280"/>
       <!-- the house: a cantilevered glass box over the edge, a second box stacked and offset on top -->
       <g class="house">
@@ -331,8 +338,21 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
         <path class="mullion" d="M990 56 V82 M1010 56 V82 M1030 56 V82"/>
         <rect class="lit" x="1072" y="56" width="8" height="26"/>
         <rect class="lit" x="1086" y="96" width="8" height="20"/>
+        <rect class="glowhalo" id="halo" x="880" y="50" width="180" height="70"/>
+        <rect class="glow" data-at="0.3" x="886" y="94" width="20" height="23"/>
+        <rect class="glow" data-at="0.62" x="906" y="94" width="20" height="23"/>
+        <rect class="glow" data-at="0.45" x="926" y="94" width="20" height="23"/>
+        <rect class="glow" data-at="0.7" x="946" y="94" width="20" height="23"/>
+        <rect class="glow" data-at="0.38" x="986" y="94" width="20" height="23"/>
+        <rect class="glow" data-at="0.55" x="1006" y="94" width="20" height="23"/>
+        <rect class="glow" data-at="0.78" x="1026" y="94" width="24" height="23"/>
+        <rect class="glow" data-at="0.5" x="966" y="56" width="24" height="26"/>
+        <rect class="glow" data-at="0.66" x="990" y="56" width="20" height="26"/>
+        <rect class="glow" data-at="0.42" x="1030" y="56" width="20" height="26"/>
+        <path class="mullion" d="M906 94 V117 M926 94 V117 M946 94 V117 M966 94 V117 M986 94 V117 M1006 94 V117 M1026 94 V117 M990 56 V82 M1010 56 V82 M1030 56 V82"/>
       </g>
       <path class="rock" d="M1166 118 L1166 104 L1170 104 L1170 118 Z M1168 50 L1152 80 L1160 80 L1146 104 L1190 104 L1176 80 L1184 80 Z"/>
+      </g>
     </svg>
   </section>
 
@@ -453,6 +473,65 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
 </footer>
 
 <script>
+/* Motion: one scroll-driven sunset, a hang tag on a string, and a score that counts up. All skipped when the viewer prefers reduced motion. */
+(function () {
+  if (!window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var hero = document.querySelector('.hero'), view = document.querySelector('.view');
+  var sun = document.getElementById('sun'), far = document.getElementById('farHills');
+  var swells = document.getElementById('swells'), land = document.getElementById('land');
+  var halo = document.getElementById('halo'), glows = [].slice.call(document.querySelectorAll('.view .glow'));
+  var tag = document.querySelector('.tag'), num = document.querySelector('.tag .num');
+  var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+
+  function sunset() {
+    var r = view.getBoundingClientRect(), vh = window.innerHeight;
+    // 0 at the top of the page, 1 once the scene has scrolled up to the top third of the screen
+    var end = r.bottom + window.scrollY - vh * 0.33;
+    var p = clamp(window.scrollY / Math.max(240, end), 0, 1);
+    hero.style.setProperty('--dusk', p.toFixed(3));
+    sun.setAttribute('transform', 'translate(0 ' + (p * 78).toFixed(1) + ')');
+    far.setAttribute('transform', 'translate(' + (-p * 36).toFixed(1) + ' ' + (p * 6).toFixed(1) + ')');
+    swells.setAttribute('transform', 'translate(' + (p * 48).toFixed(1) + ' 0)');
+    land.setAttribute('transform', 'translate(' + (-p * 14).toFixed(1) + ' ' + (-p * 6).toFixed(1) + ')');
+    glows.forEach(function (g) { g.style.opacity = clamp((p - g.dataset.at) * 6, 0, 1); });
+    halo.style.opacity = clamp((p - 0.4) * 1.2, 0, 0.55);
+  }
+
+  // Hang tag: a damped spring pushed by scroll speed
+  var angle = 0, vel = 0, lastY = window.scrollY, running = false;
+  function swing() {
+    vel += -angle * 0.06; vel *= 0.9; angle += vel;
+    tag.style.setProperty('--swing', angle.toFixed(2) + 'deg');
+    if (Math.abs(angle) > 0.02 || Math.abs(vel) > 0.02) requestAnimationFrame(swing);
+    else { running = false; tag.style.setProperty('--swing', '0deg'); }
+  }
+  function kick(f) { vel = clamp(vel + f, -2.2, 2.2); if (!running) { running = true; requestAnimationFrame(swing); } }
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY; kick((y - lastY) * 0.012); lastY = y;
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { sunset(); ticking = false; }); }
+  }, { passive: true });
+  window.addEventListener('resize', sunset);
+  tag.addEventListener('pointerenter', function () { kick(1.4); });
+  sunset();
+  setTimeout(function () { kick(1.6); }, 650);
+
+  // Score counts up once the tag is on screen
+  var target = parseInt(num.textContent, 10);
+  function count() {
+    var t0 = performance.now();
+    (function step(t) {
+      var k = clamp((t - t0) / 900, 0, 1), e = 1 - Math.pow(1 - k, 3);
+      num.textContent = Math.max(1, Math.round(e * target));
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); count(); } }, { threshold: 0.6 });
+    io.observe(num);
+  }
+})();
 (function () {
   var ba = document.getElementById('ba'), r = document.getElementById('ba-range');
   function set() { ba.style.setProperty('--pos', r.value + '%'); }
