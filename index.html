@@ -87,7 +87,6 @@ header.top .wrap { display: flex; align-items: center; justify-content: space-be
 .mark .stack { font-size: 1.05rem; }
 nav.links { display: flex; gap: 22px; font-size: 0.9rem; }
 nav.links a { text-decoration: none; }
-nav.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .btn {
   display: inline-block; text-decoration: none; font-weight: 700; font-size: 0.95rem;
   padding: 12px 20px; border-radius: 4px; border: 2px solid var(--bark);
@@ -95,6 +94,13 @@ nav.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
 .btn.ghost { background: transparent; color: var(--bark); }
 .btn:hover { background: var(--saddle); border-color: var(--saddle); color: var(--on-bark); }
+.btn { transition: background .25s ease, border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 18px -12px rgba(30, 18, 8, .7); }
+.btn:active { transform: translateY(0); }
+nav.links a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; padding-bottom: 2px; transition: background-size .3s ease; }
+nav.links a:hover { text-decoration: none; background-size: 100% 1.5px; }
+.rv { transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+.rv.pre { opacity: 0; transform: translateY(28px); }
 @media (max-width: 720px) { nav.links { display: none; } }
 
 /* Hero */
@@ -156,6 +162,8 @@ section.band .wrap { padding-block: 72px; border-top: 1px solid var(--line); }
 @media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; gap: 12px; } }
 
 .offers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.offer { transition: background .3s ease; }
+.offer:hover { background: var(--sand); }
 .offer { padding: 28px; display: grid; gap: 12px; align-content: start; min-width: 0; }
 .offer + .offer { border-left: 1px solid var(--line); }
 .offer h3 { font-size: 2.6rem; }
@@ -206,6 +214,68 @@ section.band .wrap { padding-block: 72px; border-top: 1px solid var(--line); }
 .new-site .n-foot { margin-top: auto; padding: 0 6cqw 4cqw; font-size: 2.4cqw; color: #66717A; }
 
 @media (max-width: 860px) { .look-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+/* How it works: the steps on one side, a homepage that assembles itself on the other */
+.build { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: start; }
+.build .steps { grid-template-columns: 1fr !important; gap: 0; }
+.build .steps li { min-height: 42vh; align-content: center; border-top: 0; border-left: 3px solid var(--line); padding: 0 0 0 22px; transition: border-color .4s ease, opacity .4s ease; }
+.build.js .steps li { opacity: .45; }
+.build.js .steps li.on { opacity: 1; border-left-color: var(--bark); }
+.frame-wrap { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 110px); display: grid; gap: 14px; min-width: 0; }
+.frame { border-radius: 10px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 30px 50px -36px rgba(30, 18, 8, .6); container-type: inline-size; }
+.f-bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.f-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.f-url { margin-left: 10px; flex: 1; font-size: .75rem; color: var(--saddle); background: var(--sand); border-radius: 4px; padding: 3px 10px; }
+.f-live { font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--on-bark); background: var(--olive); padding: 3px 8px; border-radius: 3px; opacity: 0; transform: scale(.6); transition: opacity .4s ease, transform .5s cubic-bezier(.3,1.6,.5,1); }
+.f-page { padding: 4cqw; display: grid; gap: 3.4cqw; }
+.f-page * { transition: background .6s ease, border-color .6s ease, color .6s ease, opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s ease; }
+.f-nav { display: flex; align-items: center; gap: 2.4cqw; }
+.f-logo { width: 14cqw; height: 4cqw; border-radius: 1cqw; margin-right: auto; }
+.f-link { width: 8cqw; height: 2.2cqw; border-radius: 1cqw; }
+.f-hero { border-radius: 2cqw; padding: 7cqw 6cqw; display: grid; gap: 2.6cqw; justify-items: start; min-height: 46cqw; align-content: center; }
+.f-h { font-family: var(--display); font-stretch: 70%; font-weight: 900; text-transform: uppercase; font-size: 8cqw; line-height: .92; border-radius: 1cqw; }
+.f-sub { font-size: 2.8cqw; border-radius: 1cqw; }
+.f-btn { font-size: 2.6cqw; font-weight: 700; padding: 2cqw 4cqw; border-radius: 1.4cqw; }
+.f-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4cqw; }
+.f-card { border-radius: 1.6cqw; padding: 2cqw; display: grid; height: 22cqw; }
+.f-card i { border-radius: 1cqw; }
+/* stage 1: dashed outlines only */
+.frame[data-stage="1"] :is(.f-logo, .f-link, .f-hero, .f-card) { border: 1.5px dashed var(--saddle); background: transparent; }
+.frame[data-stage="1"] :is(.f-h, .f-sub, .f-btn) { color: transparent; border: 1.5px dashed var(--saddle); background: transparent; }
+.frame[data-stage="1"] .f-card i { opacity: 0; }
+/* stage 2: grey wireframe blocks */
+.frame[data-stage="2"] :is(.f-logo, .f-link, .f-card) { border: 1.5px solid transparent; background: var(--line); }
+.frame[data-stage="2"] .f-hero { border: 1.5px solid transparent; background: color-mix(in srgb, var(--line) 55%, var(--paper)); }
+.frame[data-stage="2"] :is(.f-h, .f-sub) { color: transparent; background: var(--line); border: 1.5px solid transparent; }
+.frame[data-stage="2"] .f-btn { color: transparent; background: var(--saddle); border: 1.5px solid transparent; }
+.frame[data-stage="2"] .f-card i { opacity: 0; }
+/* stage 3 and 4: real colour and type, then photos and launch */
+.frame:is([data-stage="3"], [data-stage="4"]) :is(.f-logo) { background: var(--bark); border: 1.5px solid transparent; }
+.frame:is([data-stage="3"], [data-stage="4"]) .f-link { background: var(--saddle); border: 1.5px solid transparent; opacity: .6; }
+.frame:is([data-stage="3"], [data-stage="4"]) .f-hero { background: #22313A; border: 1.5px solid transparent; }
+.frame:is([data-stage="3"], [data-stage="4"]) .f-h { color: #FFFFFF; background: transparent; border: 1.5px solid transparent; }
+.frame:is([data-stage="3"], [data-stage="4"]) .f-sub { color: rgba(255,255,255,.75); background: transparent; border: 1.5px solid transparent; }
+.frame:is([data-stage="3"], [data-stage="4"]) .f-btn { color: #FFFFFF; background: #E0662A; border: 1.5px solid transparent; }
+.frame:is([data-stage="3"], [data-stage="4"]) .f-card { background: var(--sand); border: 1.5px solid transparent; }
+.frame[data-stage="3"] .f-card i { background: var(--line); opacity: 1; }
+.frame[data-stage="4"] .f-hero { background: linear-gradient(170deg, rgba(18,25,30,.35), rgba(18,25,30,.85)), linear-gradient(180deg, #E9AE7E 0%, #D8743A 55%, #3A2819 100%); }
+.frame[data-stage="4"] .f-card i { opacity: 1; background: linear-gradient(135deg, #C9D3D8, #8FA3AE); }
+.frame[data-stage="4"] .f-card:nth-child(2) i { background: linear-gradient(135deg, #E3C9A6, #B58B5E); }
+.frame[data-stage="4"] .f-card:nth-child(3) i { background: linear-gradient(135deg, #B9C49C, #7F8C5A); }
+.frame[data-stage="4"] .f-btn { box-shadow: 0 1cqw 3cqw -1cqw rgba(224,102,42,.8); transform: translateY(-.4cqw); }
+.frame[data-stage="4"] .f-live { opacity: 1; transform: scale(1); }
+.f-stages { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.f-stages li { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--saddle); border-top: 3px solid var(--line); padding-top: 6px; transition: border-color .4s ease, color .4s ease; }
+.f-stages li.on { color: var(--bark); border-top-color: var(--bark); }
+@media (max-width: 820px) {
+  .build { grid-template-columns: 1fr; gap: 0; }
+  .frame-wrap { order: -1; top: calc(env(safe-area-inset-top, 0px) + 70px); z-index: 2; background: var(--sand); padding-block: 10px 14px; }
+  .build .steps li { min-height: 36vh; }
+  .frame-wrap { gap: 10px; }
+  .f-hero { min-height: 30cqw; padding: 5cqw 6cqw; }
+  .f-card { height: 13cqw; }
+  .f-stages li { font-size: .62rem; letter-spacing: .08em; }
+}
 
 /* Steps */
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: s; }
@@ -425,12 +495,31 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
         <h2 class="cond">How it works</h2>
         <p>No long sales calls and no pressure. You see real work before you decide anything.</p>
       </div>
+      <div class="build">
       <ol class="steps">
-        <li><h3>We look</h3><p>We check your site on a laptop and a phone, the way your customers see it.</p></li>
-        <li><h3>We show you</h3><p>You get a concept homepage and a one-page report, free.</p></li>
-        <li><h3>We talk</h3><p>A 10 minute call to hear what you need and give you a clear quote.</p></li>
-        <li><h3>We build</h3><p>We build it, walk you through it and stick around for questions.</p></li>
+        <li data-stage="1"><h3>We look</h3><p>We check your site on a laptop and a phone, the way your customers see it.</p></li>
+        <li data-stage="2"><h3>We show you</h3><p>You get a concept homepage and a one-page report, free.</p></li>
+        <li data-stage="3"><h3>We talk</h3><p>A 10 minute call to hear what you need and give you a clear quote.</p></li>
+        <li data-stage="4"><h3>We build</h3><p>We build it, walk you through it and stick around for questions.</p></li>
       </ol>
+      <div class="frame-wrap" aria-hidden="true">
+        <div class="frame" id="frame" data-stage="4">
+          <div class="f-bar"><i></i><i></i><i></i><span class="f-url">yourbusiness.ca</span><span class="f-live">Live</span></div>
+          <div class="f-page">
+            <div class="f-nav"><span class="f-logo"></span><span class="f-link"></span><span class="f-link"></span><span class="f-link"></span></div>
+            <div class="f-hero">
+              <span class="f-h">Your business,<br>at its best</span>
+              <span class="f-sub">Clear, fast and easy to book.</span>
+              <span class="f-btn">Book a visit</span>
+            </div>
+            <div class="f-cards"><span class="f-card"><i></i></span><span class="f-card"><i></i></span><span class="f-card"><i></i></span></div>
+          </div>
+        </div>
+        <ol class="f-stages">
+          <li data-s="1">Outline</li><li data-s="2">Concept</li><li data-s="3">Details</li><li data-s="4">Live</li>
+        </ol>
+      </div>
+      </div>
     </div>
   </section>
 
@@ -527,10 +616,55 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
       if (k < 1) requestAnimationFrame(step);
     })(t0);
   }
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); count(); } }, { threshold: 0.6 });
-    io.observe(num);
+  if (!('IntersectionObserver' in window)) return;
+
+  // How it works: the homepage builds itself as each step crosses the middle of the screen
+  var build = document.querySelector('.build'), frame = document.getElementById('frame');
+  var steps = [].slice.call(build.querySelectorAll('.steps li')), marks = [].slice.call(build.querySelectorAll('.f-stages li'));
+  build.classList.add('js');
+  function stage(n) {
+    frame.dataset.stage = n;
+    steps.forEach(function (li) { li.classList.toggle('on', li.dataset.stage === String(n)); });
+    marks.forEach(function (li) { li.classList.toggle('on', +li.dataset.s <= n); });
   }
+  stage(1);
+  var so = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) stage(+e.target.dataset.stage); });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  steps.forEach(function (li) { so.observe(li); });
+
+  // Before and after: one slow sweep the first time it is seen, unless someone grabs it first
+  var ba = document.getElementById('ba'), range = document.getElementById('ba-range'), touched = false;
+  range.addEventListener('pointerdown', function () { touched = true; });
+  range.addEventListener('keydown', function () { touched = true; });
+  var bo = new IntersectionObserver(function (es) {
+    if (!es[0].isIntersecting) return; bo.disconnect();
+    var keys = [50, 18, 82, 50], t0 = performance.now(), seg = 700;
+    (function step(t) {
+      if (touched) return;
+      var i = Math.min(keys.length - 2, Math.floor((t - t0) / seg)), k = clamp((t - t0 - i * seg) / seg, 0, 1);
+      var e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      var v = keys[i] + (keys[i + 1] - keys[i]) * e;
+      range.value = v; ba.style.setProperty('--pos', v + '%');
+      if (t - t0 < seg * (keys.length - 1)) requestAnimationFrame(step);
+    })(t0);
+  }, { threshold: 0.6 });
+  bo.observe(ba);
+
+  // Reveals: only for things below the fold at load, so the first screen is complete straight away
+  var groups = ['.sec-head', '.offers', '.look-grid > *', '.about > *', '.contact .wrap > *'];
+  var ro = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove('pre'); ro.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  groups.forEach(function (sel) {
+    [].slice.call(document.querySelectorAll(sel)).forEach(function (el, i) {
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      el.classList.add('rv', 'pre'); el.style.setProperty('--d', (i * 0.12) + 's'); ro.observe(el);
+    });
+  });
+
+  var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); count(); } }, { threshold: 0.6 });
+  io.observe(num);
 })();
 (function () {
   var ba = document.getElementById('ba'), r = document.getElementById('ba-range');
