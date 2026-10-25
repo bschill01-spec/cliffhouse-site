@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Cliffhouse Studio designs and builds websites for small businesses in Vancouver, BC. Redesigns and new sites.">
-<link rel="icon" href="icon.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Cliffhouse Studio">
+<meta property="og:description" content="Website redesigns and new websites for small businesses. Vancouver, BC.">
+<meta name="theme-color" content="#3A2819">
 <title>Cliffhouse Studio Homepage</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,23 +22,24 @@
   --line: #CBBBA2;      /* rules */
   --olive: #5D6A38;     /* reserved for "won" */
   --on-bark: #F2EADC;
+  --grain: .18;
   --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --step-0: 1rem;
   --step-1: 1.25rem;
   --step-2: 1.75rem;
   --step-3: clamp(2rem, 5vw, 3rem);
-  --step-4: clamp(4.5rem, 17vw, 12rem);
+  --step-4: clamp(4.5rem, 26vw, 12rem);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --sand: #20160E; --paper: #2B1E14; --bark: #EADFCB; --saddle: #C4A27F;
-    --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; color-scheme: dark;
+    --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; --grain: .10; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --sand: #20160E; --paper: #2B1E14; --bark: #EADFCB; --saddle: #C4A27F;
-  --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; color-scheme: dark;
+  --line: #4A3727; --olive: #9AAA62; --on-bark: #20160E; --grain: .10; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -61,6 +65,9 @@ a { color: inherit; }
   font-weight: 600; color: var(--saddle);
 }
 .cond { font-family: var(--display); font-stretch: 62%; font-weight: 900; line-height: 0.82; letter-spacing: -0.01em; text-transform: uppercase; }
+
+/* Paper grain over everything, like a printed tag */
+body::after { content: ""; position: fixed; inset: 0; z-index: 20; pointer-events: none; opacity: var(--grain); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.16 0 0 0 0 0.10 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
 /* Header */
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sand); }
@@ -105,6 +112,10 @@ nav.links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .view .rock { fill: var(--bark); }
 .view .glass { fill: var(--sand); }
 .view .horizon { stroke: var(--saddle); stroke-width: 1.5; }
+.view .lit { fill: color-mix(in srgb, #E8B566 55%, var(--sand)); }
+.view .mullion { stroke: var(--bark); stroke-width: 2.5; }
+.view .rail, .view .strut { stroke: var(--bark); stroke-width: 2.5; fill: none; }
+.view .trail { stroke: var(--sand); stroke-width: 2; stroke-dasharray: 4 6; fill: none; opacity: .55; }
 
 /* Hang tag */
 .tag {
@@ -217,9 +228,28 @@ textarea { min-height: 110px; resize: vertical; }
 .note { font-size: 0.85rem; color: var(--saddle); min-height: 1.4em; }
 @media (max-width: 820px) { .contact .wrap { grid-template-columns: 1fr; } }
 
+@media (max-width: 520px) {
+  header.top .btn { padding: 9px 14px; font-size: 0.85rem; }
+  .hero .wrap { padding-block: 32px 16px; }
+  .cta-row .btn { flex: 1 1 100%; text-align: center; }
+  .slogan { margin-top: 20px; }
+  .tag { max-width: none; }
+  .tag .score .num { font-size: 6rem; }
+  section.band .wrap, .look .wrap, .contact .wrap { padding-block: 52px; }
+  .sec-head { margin-bottom: 28px; }
+  .offer { padding: 22px; }
+  .offer h3 { font-size: 2.2rem; }
+  .steps li::before { font-size: 2.8rem; }
+}
+
 footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 0.85rem; color: var(--saddle); }
 
 @media (prefers-reduced-motion: no-preference) {
+  .hero h1 span { animation: stack .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero h1 .two { animation-delay: .12s; }
+  .view .house { animation: settle 1s .35s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes stack { from { transform: translateY(.35em); opacity: 0; } }
+  @keyframes settle { from { transform: translateY(14px); opacity: 0; } }
   .tag { transition: transform .4s ease; }
   .tag:hover { transform: rotate(0deg); }
 }
@@ -275,17 +305,34 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
         <p class="foot">Higher score means more room to win customers. Every free look comes with one of these.</p>
       </aside>
     </div>
-    <svg class="view" viewBox="0 0 1200 280" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <svg class="view" viewBox="0 0 1200 280" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
       <circle class="sun" cx="640" cy="176" r="54"/>
       <path class="far" d="M0 180 L70 150 L130 162 L210 118 L290 150 L360 132 L430 158 L500 140 L560 176 L600 180 Z"/>
       <rect class="sea" x="0" y="180" width="1200" height="100"/>
       <line class="horizon" x1="0" y1="180" x2="1200" y2="180"/>
       <path class="swell" d="M60 212 h70 M210 236 h110 M420 206 h60 M520 252 h90 M90 262 h50 M640 222 h80"/>
-      <path class="rock" d="M700 280 L716 246 L748 232 L770 204 L806 194 L828 168 L872 156 L900 132 L960 122 L1200 118 L1200 280 Z"/>
-      <path class="rock" d="M972 124 L972 88 L1004 88 L1004 70 L1012 70 L1012 88 L1100 88 L1100 124 Z"/>
-      <path class="rock" d="M962 92 L1036 50 L1110 92 Z"/>
-      <rect class="glass" x="990" y="98" width="62" height="16"/>
-      <rect class="glass" x="1064" y="98" width="22" height="16"/>
+      <path class="rock" d="M700 280 L716 246 L748 232 L770 204 L806 194 L828 168 L872 156 L912 150 L932 138 L956 124 L1200 118 L1200 280 Z"/>
+      <path class="trail" d="M1124 120 L1102 150 L1142 178 L1112 214 L1150 248 L1132 280"/>
+      <!-- the house: a cantilevered glass box over the edge, a second box stacked and offset on top -->
+      <g class="house">
+        <line class="strut" x1="886" y1="122" x2="936" y2="140"/>
+        <line class="strut" x1="918" y1="122" x2="946" y2="132"/>
+        <rect class="rock" x="878" y="88" width="190" height="34"/>
+        <rect class="glass" x="886" y="94" width="164" height="23"/>
+        <rect class="lit" x="966" y="94" width="40" height="23"/>
+        <path class="mullion" d="M906 94 V117 M926 94 V117 M946 94 V117 M966 94 V117 M986 94 V117 M1006 94 V117 M1026 94 V117"/>
+        <path class="rail" d="M878 74 H956 M878 74 V88 M891 74 V88 M904 74 V88 M917 74 V88 M930 74 V88 M943 74 V88"/>
+        <rect class="rock" x="1060" y="88" width="60" height="34"/>
+        <rect class="rock" x="958" y="48" width="152" height="40"/>
+        <rect class="rock" x="946" y="41" width="176" height="7"/>
+        <rect class="rock" x="1088" y="26" width="10" height="16"/>
+        <rect class="glass" x="966" y="56" width="84" height="26"/>
+        <rect class="lit" x="1010" y="56" width="20" height="26"/>
+        <path class="mullion" d="M990 56 V82 M1010 56 V82 M1030 56 V82"/>
+        <rect class="lit" x="1072" y="56" width="8" height="26"/>
+        <rect class="lit" x="1086" y="96" width="8" height="20"/>
+      </g>
+      <path class="rock" d="M1166 118 L1166 104 L1170 104 L1170 118 Z M1168 50 L1152 80 L1160 80 L1146 104 L1190 104 L1176 80 L1184 80 Z"/>
     </svg>
   </section>
 
