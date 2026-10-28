@@ -25,16 +25,31 @@ export default function Motion() {
     const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
     const watch = (fn, opts) => { const o = new IntersectionObserver(fn, opts); observers.push(o); return o; };
 
-    // The house builds itself once, the first time the scene is on screen
+    // The house builds itself once, starting as soon as the scene peeks onto the screen. A quick
+    // timer runs the five stages in about two seconds, and scrolling pushes it along too, so it
+    // is always finished before the scene has scrolled up past the middle of the screen.
     const view = document.querySelector(".view");
     if (view) {
       view.classList.add("b0");
+      let stage = 0, started = false;
+      const reach = (n) => {
+        for (; stage < Math.min(5, n); ) view.classList.add("b" + ++stage);
+        if (stage === 5) stopScroll();
+      };
+      const byScroll = () => {
+        const r = view.getBoundingClientRect(), vh = window.innerHeight;
+        return Math.ceil(5 * clamp((vh - r.top) / (r.height + vh * 0.2), 0, 1));
+      };
+      const onScroll = () => { if (started) reach(byScroll()); };
+      listen(window, "scroll", onScroll, { passive: true });
+      const stopScroll = () => window.removeEventListener("scroll", onScroll);
       const vo = watch((es) => {
         if (!es[0].isIntersecting) return;
         vo.disconnect();
-        timers.push(setTimeout(() => [0, 700, 1700, 2500, 3200].forEach((t, i) =>
-          timers.push(setTimeout(() => view.classList.add("b" + (i + 1)), t))), 250));
-      }, { threshold: 0.45 });
+        started = true;
+        [0, 300, 650, 1000, 1350].forEach((t, i) => timers.push(setTimeout(() => reach(i + 1), t)));
+        onScroll();
+      }, { threshold: 0, rootMargin: "0px 0px -40px 0px" });
       vo.observe(view);
     }
 
