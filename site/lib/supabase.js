@@ -2,7 +2,7 @@
 // site add an enquiry, read one concept page by its private link, and count a view. It can't
 // list or read leads, so no secret key is needed on the website.
 // Read on each call: on Cloudflare the values arrive with the request, not at build time.
-const url = () => process.env.SUPABASE_URL;
+const url = () => process.env.SUPABASE_URL || "https://ojwrukdsnwhxpzrclpsf.supabase.co";
 const key = () => process.env.SUPABASE_ANON_KEY;
 
 export const configured = () => Boolean(url() && key());
