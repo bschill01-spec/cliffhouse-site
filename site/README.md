@@ -25,5 +25,6 @@ new host.
 `npm run preview` builds for Cloudflare Workers and runs it locally; `npm run deploy` publishes
 (needs `wrangler login` once). Or connect the repo in Cloudflare (Workers & Pages > Create >
 Import a repository) with root directory `site`, build command `npx opennextjs-cloudflare build`
-and deploy command `npx opennextjs-cloudflare deploy`. Add `SUPABASE_URL` and
-`SUPABASE_ANON_KEY` as variables.
+deploy command `npx opennextjs-cloudflare deploy` and preview command
+`npx opennextjs-cloudflare upload`. `SUPABASE_URL` is set in `wrangler.jsonc`; add
+`SUPABASE_ANON_KEY` as a secret under the Worker's Settings > Variables and Secrets.
