@@ -21,7 +21,7 @@ export async function POST(req) {
   if (!row.name || !row.business || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(row.email)) {
     return NextResponse.json({ error: "Please add your name, business name and a working email." }, { status: 400 });
   }
-  if (!configured) return NextResponse.json({ error: "The form isn't connected yet." }, { status: 503 });
+  if (!configured()) return NextResponse.json({ error: "The form isn't connected yet." }, { status: 503 });
   try {
     await insertEnquiry(row);
   } catch (e) {
