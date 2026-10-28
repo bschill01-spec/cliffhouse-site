@@ -19,3 +19,11 @@ Run locally: `npm install`, then `npm run dev`.
 
 The static site at the repo root stays live on GitHub Pages until the domain is pointed at the
 new host.
+
+## Hosting on Cloudflare
+
+`npm run preview` builds for Cloudflare Workers and runs it locally; `npm run deploy` publishes
+(needs `wrangler login` once). Or connect the repo in Cloudflare (Workers & Pages > Create >
+Import a repository) with root directory `site`, build command `npx opennextjs-cloudflare build`
+and deploy command `npx opennextjs-cloudflare deploy`. Add `SUPABASE_URL` and
+`SUPABASE_ANON_KEY` as variables.
