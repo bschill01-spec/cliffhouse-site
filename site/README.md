@@ -27,4 +27,5 @@ new host.
 Import a repository) with root directory `site`, build command `npx opennextjs-cloudflare build`
 deploy command `npx opennextjs-cloudflare deploy` and preview command
 `npx opennextjs-cloudflare upload`. `SUPABASE_URL` is set in `wrangler.jsonc`; add
-`SUPABASE_ANON_KEY` as a secret under the Worker's Settings > Variables and Secrets.
+`SUPABASE_ANON_KEY` as a Production secret under the Worker's Settings > Variables and Secrets;
+branch previews pick it up from the latest Production version.
