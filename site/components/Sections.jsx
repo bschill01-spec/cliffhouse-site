@@ -57,14 +57,14 @@ export function Offers({ heading = true }) {
             <h3 className="cond">Brand new websites</h3>
             <p>No site yet, or just a social media page? We build a clear site that tells people what you do, shows your best work and makes it easy to call, book or ask for a quote. Built to look good on a phone first.</p>
             <p className="for">For trades, shops, studios and local services</p>
-            <p className="price"><span>From</span><b>$2,500</b><span>Usually live in 2 to 3 weeks</span></p>
+            <p className="price"><span>Usually live in</span><b>2 to 3 weeks</b></p>
           </article>
           <article className="offer">
             <p className="label">02 · Start over</p>
             <h3 className="cond">Full redesigns</h3>
             <p>Your site works, but it looks dated, is hard to use on a phone or doesn't show how good your work really is. We rebuild it around what you already have, your photos, your wording and your reputation, so it looks the part and makes it easy for people to reach you.</p>
             <p className="for">For businesses whose site no longer matches their work</p>
-            <p className="price"><span>From</span><b>$3,000</b><span>Usually live in 3 to 4 weeks</span></p>
+            <p className="price"><span>Usually live in</span><b>3 to 4 weeks</b></p>
           </article>
         </div>
       </div>
@@ -157,7 +157,7 @@ export function HowItWorks() {
 }
 
 const FAQ = [
-  ["How much does a website cost?", "Brand new websites start at $2,500 and full redesigns start at $3,000, in Canadian dollars. After a 10 minute call you get one fixed price in writing, so there are no hourly bills or surprises. Half is paid to start and half when your site goes live."],
+  ["How much does a website cost?", "Every project gets one fixed price in writing after a 10 minute call, so there are no hourly bills or surprises. Ask us for our pricing guide and we'll send it over. Half is paid to start and half when your site goes live."],
   ["How long does it take?", "Most new sites are live in 2 to 3 weeks, and most redesigns in 3 to 4. The biggest factor is how quickly we get your photos and details, and we'll tell you exactly what we need up front."],
   ["Is the free look really free?", "Yes. You get a concept homepage and a one-page report on your current site at no cost. There's no obligation, and you keep both either way."],
   ["Do I need my photos and wording ready?", "No. We work with what you already have, like your current site, social media and photos, and we help write anything that's missing."],
