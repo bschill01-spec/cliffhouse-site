@@ -72,6 +72,39 @@ export function Offers({ heading = true }) {
   );
 }
 
+export function WixOptions() {
+  return (
+    <section className="band" id="wix">
+      <div className="wrap">
+        <div className="sec-head">
+          <h2 className="cond">Already on Wix?</h2>
+          <p>Lots of small businesses run on Wix because it handles their bookings, online store or contact forms. A redesign does not have to mean losing any of that. We will tell you which of these three fits you best on our 10 minute call.</p>
+        </div>
+        <div className="offers three">
+          <article className="offer">
+            <p className="label">A · Stay put</p>
+            <h3 className="cond">Keep it on Wix</h3>
+            <p>We redesign your site and it stays on your Wix account. Your bookings, products, orders and forms keep working the way they do now, with nothing to move or set up again. When you need a change, send it to us and we take care of it as part of a care plan.</p>
+            <p className="for">For businesses that rely on Wix bookings or a Wix store</p>
+          </article>
+          <article className="offer">
+            <p className="label">B · Move over</p>
+            <h3 className="cond">Move off Wix</h3>
+            <p>Ready to leave Wix behind? We rebuild your site somewhere you own outright, bring your pages, photos and wording across, and keep your web address so customers find you in the same place. It is the same full redesign as any other, just with the move handled for you.</p>
+            <p className="for">For businesses that have outgrown Wix</p>
+          </article>
+          <article className="offer">
+            <p className="label">C · Do it yourself</p>
+            <h3 className="cond">Wix Studio rebuild</h3>
+            <p>Like making your own changes? We rebuild your site in Wix Studio, Wix's newer and more flexible editor, then show you how to update text, photos and pages yourself. You stay on Wix with everything in your hands.</p>
+            <p className="for">For owners who want to keep editing on their own</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function SeeItFirst() {
   return (
     <section className="look" id="look">
@@ -162,6 +195,7 @@ const FAQ = [
   ["Is the free look really free?", "Yes. You get a concept homepage and a one-page report on your current site at no cost. There's no obligation, and you keep both either way."],
   ["Do I need my photos and wording ready?", "No. We work with what you already have, like your current site, social media and photos, and we help write anything that's missing."],
   ["Can I update the site myself?", "Yes. We set it up so you can change text and photos on your own, and we walk you through it before launch. If you'd rather not, just send us the change."],
+  ["My site is on Wix. Can you still help?", "Yes. We can redesign it and keep it on Wix so your bookings, store and forms keep working, move it off Wix to a site you own outright, or rebuild it in Wix Studio so you can edit it yourself. We'll help you pick the right one on a quick call."],
   ["Who owns the site and the domain?", "You do. Your domain and your site are registered in your name, and we help set up hosting so you're never locked in to us."],
   ["Do you only work with businesses in Vancouver?", "We're based in Vancouver and work with businesses anywhere in BC and beyond. Everything happens by email and a quick call, so distance doesn't matter."],
 ];
