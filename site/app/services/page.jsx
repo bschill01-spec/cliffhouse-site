@@ -1,5 +1,5 @@
 import { Header, Footer, PageHead } from "@/components/Chrome";
-import { Offers, HowItWorks, Faq, Contact } from "@/components/Sections";
+import { Offers, WixOptions, HowItWorks, Faq, Contact } from "@/components/Sections";
 import Motion from "@/components/Motion";
 
 export const metadata = {
@@ -16,6 +16,7 @@ export default function Services() {
           Two kinds of work, both for small businesses that would rather be running the shop than fighting with a website. We set it up, explain how it works, and hand you the keys.
         </PageHead>
         <Offers heading={false} />
+        <WixOptions />
         <HowItWorks />
         <Faq />
         <Contact />
