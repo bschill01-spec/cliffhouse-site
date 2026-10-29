@@ -37,10 +37,11 @@ export async function conceptBySlug(slug) {
   return rows && rows[0] ? rows[0] : null;
 }
 
-// A file from the private bucket. The storage policy only lets the public read the
-// concept homepage and report of a lead that has a concept link.
-export async function conceptFile(path) {
+// A file from the private bucket. The storage policy only lets the public read the concept
+// homepage, its picture, the report, the clip and the email preview of a lead that has a
+// concept link.
+export async function conceptFile(path, extra = {}) {
   const r = await fetch(`${url()}/storage/v1/object/authenticated/lead-files/${path.split("/").map(encodeURIComponent).join("/")}`,
-                        { headers: headers(), cache: "no-store" });
+                        { headers: headers(extra), cache: "no-store" });
   return r.ok ? r : null;
 }

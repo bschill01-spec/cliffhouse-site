@@ -372,3 +372,5 @@ nav.links a[aria-current="page"] { background-size: 100% 1.5px; }
 .concept iframe { display: block; width: 100%; height: min(78vh, 900px); border: 0; background: #FFFFFF; }
 .concept .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .concept .small { font-size: 0.85rem; color: var(--saddle); }
+.concept .clip { display: grid; gap: 12px; max-width: 900px; }
+.concept .clip video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; background: var(--bark); box-shadow: 0 30px 50px -36px rgba(30, 18, 8, .6); }
