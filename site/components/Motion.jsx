@@ -26,9 +26,9 @@ export default function Motion() {
     const watch = (fn, opts) => { const o = new IntersectionObserver(fn, opts); observers.push(o); return o; };
 
     // The house builds itself once, in step with scrolling: it starts when about a third of the
-    // scene is on screen and is complete by the time the whole scene is in view. Anyone who stops
-    // to look gets a quick timed build instead, and a page that opens already scrolled past the
-    // scene just shows the finished house.
+    // scene is on screen and is complete by the time the whole scene is in view. Once a third is
+    // showing a quick timed build also runs, so nobody waits on a half-built house, and a page
+    // that opens already scrolled past the scene just shows the finished house.
     const view = document.querySelector(".view");
     if (view) {
       view.classList.add("b0");
@@ -47,7 +47,7 @@ export default function Motion() {
         if (!es[0].isIntersecting) return;
         vo.disconnect();
         [0, 300, 650, 1000, 1350].forEach((t, i) => timers.push(setTimeout(() => reach(i + 1), t)));
-      }, { threshold: 0.6 });
+      }, { threshold: 0.3 });
       vo.observe(view);
     }
 

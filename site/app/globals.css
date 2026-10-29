@@ -98,7 +98,7 @@ nav.links a:hover { text-decoration: none; background-size: 100% 1.5px; }
 .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 
 /* The view: a coastal cliff where the house builds itself, foundation first */
-.view { display: block; width: 100%; height: clamp(150px, 24vw, 300px); margin-top: -8px; }
+.view { display: block; width: 100%; height: clamp(150px, 25vw, 560px); margin-top: -8px; }
 .view .far { fill: var(--line); }
 .view .sea { fill: color-mix(in srgb, var(--saddle) 22%, var(--sand)); }
 .view .swell { stroke: color-mix(in srgb, var(--saddle) 45%, var(--sand)); stroke-width: 2; stroke-linecap: round; fill: none; }
