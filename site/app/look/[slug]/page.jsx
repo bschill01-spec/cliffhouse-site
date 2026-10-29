@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Header, Footer } from "@/components/Chrome";
 import ViewBeacon from "@/components/ViewBeacon";
+import ClipPlayer from "@/components/ClipPlayer";
 import { conceptBySlug } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -32,6 +33,7 @@ export default async function ConceptPage({ params }) {
             <p>This is a concept homepage we put together for {c.business}, built from the photos and wording already on {c.domain}. It is a starting point to show what is possible, not a finished site, and it is yours to keep either way.</p>
             <p>Scroll inside the frame to see the whole page. It works on a phone too.</p>
           </div>
+          {c.clip_path && <ClipPlayer src={`/look/${slug}/clip#t=0.1`} />}
           <div className="frame">
             <div className="f-bar"><i></i><i></i><i></i><span className="f-url">{c.domain}</span><span className="f-live" style={{ opacity: 1, transform: "none" }}>Concept</span></div>
             <iframe src={`/look/${slug}/concept`} title={`Concept homepage for ${c.business}`} loading="eager"
